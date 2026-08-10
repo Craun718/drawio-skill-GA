@@ -2,6 +2,8 @@
 
 When the user requests a specific diagram type, apply the matching preset below for shapes, styles, and layout conventions. These presets set **structural** style keywords (e.g. ERD's `shape=table;childLayout=tableLayout`); a user style preset (see `references/style-presets.md`) layers color/font/edge/extras on top.
 
+**Color restraint:** unless the user explicitly requests a different palette, author each diagram with at most three soft chromatic colors plus black/white/gray. Reuse those colors across roles and tiers; do not add one hue per node type.
+
 Read this file when:
 - The user names one of these diagram types (ERD, UML class, sequence, C4, architecture, ML/DL model, flowchart, SysML, BPMN, network topology, cross-functional/swimlane)
 - You're choosing shape vocabulary or layout direction for a new diagram
@@ -62,15 +64,33 @@ Read this file when:
 
 ## Architecture Diagram
 
+For Chinese-language layered architecture, use the v2 style below: bold 18-20pt text, white-filled blocks, thick labeled layer edges, and a narrow full-height side rail for external/coordination systems. For non-Chinese diagrams, keep the active preset font but use the same sizes and weights.
+
+### Capability Stack Architecture
+
+For layered systems with 4+ tiers, prefer the compact **Capability Stack Architecture**:
+
+- Keep user-facing/application tiers near the top, processing/aggregation in the middle, and platform/foundation near the bottom. Put shared external/coordination systems in a **right rail** instead of separate top or bottom tiers.
+- Each layer is a labeled swimlane with a **tiered semantic palette**: one soft hue per layer, reused consistently across the diagram.
+- Keep **subordinate components** inside their layer. Use an **aggregate component full-width** at the top of a layer to summarize a group, then connect subordinate components to it. Do not turn subordinate components into separate steps.
+- Use white body cards with the layer's stroke color, bold 18-20pt body text, and 20pt bold layer headers.
+- Use unadorned orthogonal edges for layer transitions and aggregate/subordinate relations; reserve classic bidirectional arrows for the right rail.
+- Do not add a legend merely because the diagram uses one hue per layer.
+
 | Element | Style | Notes |
 |---------|-------|-------|
-| Layer/tier | `swimlane;startSize=30;` | Containers for grouping: Client / API / Service / Data |
-| Service | `rounded=1;whiteSpace=wrap;html=1;` + tier color | Use color palette by tier |
-| Database | `shape=cylinder3;whiteSpace=wrap;html=1;` | Green palette |
-| Queue/Bus | `rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;` | Yellow — place centrally for hub pattern |
-| Gateway/LB | `shape=mxgraph.aws4.resourceIcon;` or `rounded=1;` with orange | Orange palette |
-| External | `rounded=1;dashed=1;fillColor=#f5f5f5;strokeColor=#666666;` | Dashed border for external systems |
-| Layout | TB or LR by tier count; ≥4 tiers → TB | Hub nodes centered |
+| Page title | `text;html=1;align=center;verticalAlign=middle;fontSize=28;fontStyle=1;fontFamily=黑体;` | Span the canvas width above the first layer |
+| Layer/tier | `swimlane;startSize=32;html=1;whiteSpace=wrap;fillColor=<tier fill>;strokeColor=<tier stroke>;fontFamily=黑体;fontSize=20;fontStyle=1;` | Containers for grouping: Client / API / Service / Data |
+| Service | `rounded=1;whiteSpace=wrap;html=1;fontFamily=仿宋_GB2312;fontSize=19;fontStyle=1;` + tier color | White-filled blocks, bold label |
+| Database | `shape=cylinder3;whiteSpace=wrap;html=1;fontFamily=仿宋_GB2312;fontSize=19;fontStyle=1;` | Green palette |
+| Queue/Bus | `rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontFamily=仿宋_GB2312;fontSize=19;fontStyle=1;` | Yellow — place centrally for hub pattern |
+| Gateway/LB | `shape=mxgraph.aws4.resourceIcon;` or `rounded=1;` + orange + the body font rules | Orange palette |
+| External | `rounded=1;dashed=1;fillColor=#f5f5f5;strokeColor=#666666;fontFamily=仿宋_GB2312;fontSize=19;fontStyle=1;` | Dashed border for external systems |
+| Collaboration rail | `swimlane;startSize=120;html=1;whiteSpace=wrap;fillColor=#ffe6cc;strokeColor=#d79b00;fontFamily=黑体;fontSize=18;fontStyle=1;` | 4+ external/coordination systems → narrow vertical rail |
+| Rail item | `rounded=1;whiteSpace=wrap;html=1;fontFamily=仿宋_GB2312;fontSize=19;fontStyle=1;textDirection=vertical-lr;` + rail colors | `60×250` cards; last item may add `direction=west` |
+| Layer edge | `edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=3;fontSize=18;fontStyle=1;labelBackgroundColor=#ffffff;` | Thick, bold, labeled |
+| Rail edge | Same layer edge, but `exitX=0.5;exitY=0.5;entryX=0;entryY=0.5;` | Enter the rail from its left edge |
+| Layout | TB for ≥4 tiers; title + layers stacked from `y≈10`; rail spans the full diagram height on the right | Hub nodes centered |
 
 ## ML / Deep Learning Model Diagram
 

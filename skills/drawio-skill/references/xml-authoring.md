@@ -142,6 +142,8 @@ When multiple edges connect to the same shape, assign different entry/exit point
 
 *Used only when no user style preset is active (see `references/style-presets.md` → "Applying a preset").*
 
+**Color restraint:** use this table as a soft pastel pool. For any single diagram, choose at most three chromatic colors plus black/white/gray and reuse them across roles/tiers; do not add a new hue per node type unless the user explicitly requests a different palette. The built-in exception is a **tiered semantic palette** for layered architecture: one hue per labeled layer, with no legend required.
+
 | Color name | fillColor | strokeColor | Use for |
 |-----------|-----------|-------------|---------|
 | Blue | `#dae8fc` | `#6c8ebf` | services, clients |
@@ -152,9 +154,27 @@ When multiple edges connect to the same shape, assign different entry/exit point
 | Grey | `#f5f5f5` | `#666666` | external/neutral |
 | Purple | `#e1d5e7` | `#9673a6` | security, auth |
 
-### Legend (auto-generate from the palette)
+### Capability Stack Architecture style
 
-When a diagram uses 3+ semantic colors, add a legend so the color coding is self-explanatory. Generate it mechanically from the roles actually present — never invent legend entries that aren't in the diagram:
+For layered architecture, prefer the compact **Capability Stack Architecture** style: larger bold text, white service blocks, thick unadorned layer edges, aggregate components, and a narrow vertical rail for external/coordination systems. This is a **tiered semantic palette**, so the layer headers carry the color meaning and no legend is needed.
+
+- **Canvas:** keep the page compact; do not stretch every layer across the full page. Use a main stack around 900-1100px wide, a right rail around 95px wide when present, `x=30`, and page width/height sized to the content plus 40-70px margins.
+- **Page title:** `text;html=1;align=center;verticalAlign=middle;fontSize=28;fontStyle=1;fontFamily=黑体;` at `x=30 y=10`, spanning the stack plus the rail when one is present.
+- **Layer containers:** `swimlane;startSize=32;html=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontFamily=黑体;fontSize=20;fontStyle=1;` (replace colors per tier).
+- **Content blocks:** `rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontFamily=仿宋_GB2312;fontSize=19;fontStyle=1;` (replace stroke per layer). Keep gaps and card dimensions on multiples of 10.
+- **Aggregate component full-width:** when a layer has a summary, place one full-width rounded card at `x=20`, width = layer width - 40, height 45-55; put subordinate components below it.
+- **Inter-layer edges:** `edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=3;fontSize=18;fontStyle=1;labelBackgroundColor=#ffffff;` Keep these unadorned unless direction is semantically required.
+- **Inside-layer edges:** use the same orthogonal base without `strokeWidth=3`; when several subordinate components connect to one aggregate component, spread their `exitX/entryX` values evenly so the lines do not stack.
+- **External/coordination rail:** when there are 4+ external systems, use a narrow vertical swimlane (e.g. `width=95`, `startSize=120`) whose children are vertical cards (`width=60`, `height=250`, `textDirection=vertical-lr;direction=west;fontStyle=1;`). Connect it from the main layers with `entryX=0;entryY=0.5`.
+- **Rail edge:** use classic bidirectional arrows when the rail has shared two-way coordination: `startArrow=classic;endArrow=classic;startFill=1;endFill=1`.
+- **Typography pairing:** use `黑体` for titles/layer headers and `仿宋_GB2312` for body blocks in Chinese diagrams; keep the active preset font for non-Chinese labels.
+- **Legend:** do not auto-add a legend for a **tiered semantic palette**; add one only when the user asks or when role colors are not already explained by visible labels.
+
+All coordinates and sizes remain multiples of 10.
+
+### Legend (optional)
+
+Add a legend only when role colors are not self-explanatory or the user asks for one. Generate it mechanically from the roles actually present — never invent legend entries that aren't in the diagram:
 
 ```xml
 <!-- Legend container: place in a corner clear of the diagram (e.g. below-left) -->
@@ -170,7 +190,7 @@ When a diagram uses 3+ semantic colors, add a legend so the color coding is self
 </mxCell>
 ```
 
-Rules: swatch colors come from the active palette (preset or the table above) with the **role name** as the label (Service, Database, Queue, …); height = `30 + 24 × rows`; the legend is a container (`parent="legend"`, relative coordinates); skip it entirely for single-color diagrams.
+Rules: swatch colors come from the active palette (preset or the table above) with the **role name** as the label (Service, Database, Queue, …); height = `30 + 24 × rows`; the legend is a container (`parent="legend"`, relative coordinates). Skip it for single-color diagrams and for **tiered semantic palette** diagrams whose layer headers already explain each hue.
 
 ### Layout tips
 
@@ -202,4 +222,3 @@ Rules: swatch colors come from the active palette (preset or the table above) wi
 - For tree/hierarchical layouts: assign nodes to layers (rows), connect only between adjacent layers to minimize crossings
 - For star/hub layouts: place the hub center, satellites around it — edges stay short and radial
 - When an edge must span multiple rows/columns, route it along the outer corridor, not through the middle of the diagram
-

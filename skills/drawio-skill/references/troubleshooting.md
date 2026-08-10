@@ -4,6 +4,7 @@ Read this when something looks wrong in the output (rendering, export, layout, e
 
 | Mistake | Fix |
 |---------|-----|
+| drawio crashes / hangs / produces no output in a sandboxed agent (e.g., Codex) | Never invoke drawio inside the sandbox. Request escalated / unsandboxed execution before every drawio command, including `--version`; if escalation is denied, use browser fallback / XML-only |
 | Missing `id="0"` and `id="1"` root cells | Always include both at the top of `<root>` |
 | Shapes not connected | `source` and `target` on edge must match existing shape `id` values |
 | Self-closing edge `mxCell` (`<mxCell ... edge="1" />`) | Use the expanded form with `<mxGeometry relative="1" as="geometry" />` child — self-closing edges won't render |

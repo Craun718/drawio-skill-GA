@@ -2,6 +2,8 @@
 
 Read this when the diagram is a **standard type with no custom styling needs** and the draw.io CLI is **version ≥ 30** — writing Mermaid text and letting the CLI convert it is faster and safer than hand-placing XML: you only get the *structure* right, layout comes free.
 
+**Sandbox execution:** all drawio CLI commands in this reference must run with escalated / unsandboxed execution (Codex: `sandbox_permissions: "require_escalated"`); never invoke draw.io inside a sandbox.
+
 ```bash
 # .mmd in → laid-out, editable, native .drawio out (draw.io desktop ≥ 30)
 drawio -x -f xml -o diagram.drawio diagram.mmd

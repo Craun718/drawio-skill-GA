@@ -25,6 +25,8 @@ Only user presets can have `"default": true`. When the user says *"make `<built-
 
 When SKILL.md's Step 0 identified a preset, it fully replaces the built-in palette, shape keywords, edge defaults, and font for this diagram — do not mix values from the built-in color table.
 
+**Color restraint:** when no user preset is active, use at most three soft chromatic colors plus black/white/gray (see SKILL.md). A user preset or an explicit color request overrides this default. The built-in exception is a **tiered semantic palette** for Capability Stack Architecture: one soft hue per labeled layer is allowed, and no legend is required because the layer headers carry the color meaning.
+
 **Color lookup.** For each role a shape plays (service / database / queue / gateway / error / external / security), resolve `preset.roles[role]` to a slot name, then `preset.palette[<slot>]` to the `(fillColor, strokeColor)` pair. If `roles[role]` is unset or the resolved slot is `null`, follow this fallback ladder:
 
 1. Try the role's canonical slot (`service→primary`, `database→success`, `queue→warning`, `gateway→accent`, `error→danger`, `external→neutral`, `security→secondary`).
@@ -50,20 +52,35 @@ When SKILL.md's Step 0 identified a preset, it fully replaces the built-in palet
 
 **Interaction with diagram-type presets** (ERD / UML / Sequence / ML / Flowchart). Diagram-type presets set structural style keywords that the user preset must preserve (e.g. ERD tables rely on `shape=table;startSize=30;container=1;childLayout=tableLayout;...`). The rule: keep the diagram-type preset's structural keywords, then layer the user preset's color / font / edge / extras on top. When a diagram-type preset hardcodes a color (`fillColor=#dae8fc`, etc.) that conflicts with the user preset, the user preset's color wins. Exception: `fillColor=none` is structural — do not replace it with a palette color.
 
+A **tiered semantic palette** is a diagram-type style rather than a preset role assignment: one hue per labeled layer, with the swimlane headers explaining the colors. It does not trigger a legend.
+
 ## Learn flow
 
 **Triggers:** "learn my style from `<path>` as `<name>`", "save this as `<name>` style", "remember this style as `<name>`".
 
 **Dispatch by file extension:**
 - `.drawio`, `.xml` → XML path
-- `.png`, `.jpg`, `.jpeg`, `.svg` (rasterized flat image) → image path
+- `.png`, `.jpg`, `.jpeg`, `.svg` (rasterized flat image) → image path (after explicit image-reading consent)
+
+**Image consent.** Before dispatching an image to the image path, confirm the
+user wants that image read. A request that names the image, such as "learn my
+style from `image.png` as `name`", is consent for that image. If the source is
+a document or directory with embedded images, list the images and ask which to
+read; do not run OCR, vision, or other image-reading tools without explicit
+approval. If the user declines, stop the image extraction flow.
+
+**Source scope.** Extract only from the exact source path the user named. If
+`<path>` is a directory, that directory is the explicit scope; do not scan
+sibling directories, parents, or the surrounding workspace unless the user
+designated them. If the source file references other files, ask before reading
+them.
 
 **Steps:**
 
 1. **Load the extraction reference.** Read `references/style-extraction.md` into context.
 2. **Extract** following the XML path or image path procedure in the reference.
 3. **Normalize and build candidate.** Convert the user-provided preset name to lowercase. Use this normalized name for ALL file paths in this flow. Build the candidate preset JSON and write it to `/tmp/drawio-preset-<name>.json` (where `<name>` is the already-normalized name). Do **not** save to `~/.drawio-skill/styles/<name>.json` yet.
-4. **Render a sample** using the sample-diagram skeleton in `references/style-extraction.md`, parameterized by the candidate preset. Export PNG to `./preset-<name>-sample.png` using the same `drawio -x -f png -e -s 2 -o ./preset-<name>-sample.png /tmp/drawio-preset-<name>.drawio` command the main workflow uses, then run `repair_png.py` on it (see the Rendering the sample steps in `style-extraction.md`).
+4. **Render a sample** using the sample-diagram skeleton in `references/style-extraction.md`, parameterized by the candidate preset. Request escalated / unsandboxed execution before the `drawio` command (never run it inside the sandbox), export PNG to `./preset-<name>-sample.png` using the same `drawio -x -f png -e -s 2 -o ./preset-<name>-sample.png /tmp/drawio-preset-<name>.drawio` command the main workflow uses, then run `repair_png.py` on it (see the Rendering the sample steps in `style-extraction.md`).
 5. **Show the user:**
    - Preset summary table (palette hex values, shapes per role, font, edge style, extras).
    - The sample PNG path (and embed the image if the environment supports it).

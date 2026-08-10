@@ -24,21 +24,21 @@
     "security": "secondary"
   },
   "shapes": {
-    "service":   "rounded=1",
-    "database":  "shape=cylinder3",
-    "queue":     "rounded=1",
+    "service":   "rounded=1;fontStyle=1",
+    "database":  "shape=cylinder3;fontStyle=1",
+    "queue":     "rounded=1;fontStyle=1",
     "decision":  "rhombus",
-    "external":  "rounded=1;dashed=1",
-    "container": "swimlane;startSize=30"
+    "external":  "rounded=1;dashed=1;fontStyle=1",
+    "container": "swimlane;startSize=32"
   },
   "font": {
     "fontFamily": "Helvetica",
-    "fontSize": 12,
-    "titleFontSize": 14,
+    "fontSize": 19,
+    "titleFontSize": 20,
     "titleBold": true
   },
   "edges": {
-    "style": "edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1",
+    "style": "edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;fontSize=18;fontStyle=1;labelBackgroundColor=#ffffff",
     "arrow": "endArrow=classic;endFill=1",
     "dashedFor": []
   },

@@ -25,6 +25,8 @@ strict hierarchy (use `autolayout.py` / a diagram-type preset for those).
 
 You (the model) compose the metro JSON — from a system description, or by reading an
 existing diagram's structure and grouping its edges into a handful of named "lines".
+If the input is an existing diagram, read it only when the user explicitly names
+that file, and read only that file.
 
 ```json
 {

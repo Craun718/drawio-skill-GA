@@ -95,7 +95,7 @@ The edge style is built as:
 ### Rendering the sample
 
 1. Write the filled XML to `/tmp/drawio-preset-<name>.drawio`.
-2. Run the same `drawio -x -f png -e -s 2 -o <preset-name>-sample.png <tmp>.drawio` command the main workflow uses (substitute the binary name you resolved in SKILL.md Step 1 if it isn't `drawio`).
+2. Request escalated / unsandboxed execution, then run the same `drawio -x -f png -e -s 2 -o <preset-name>-sample.png <tmp>.drawio` command the main workflow uses (substitute the binary name you resolved in SKILL.md Step 1 if it isn't `drawio`). Never run drawio inside the sandbox.
 3. Repair the IEND chunk: `python3 <this-skill-dir>/scripts/repair_png.py <preset-name>-sample.png` — the `-e` flag truncates the PNG the same way the main workflow's step 7 does, so the sample needs the same fix to be readable.
 4. Save the PNG as `./preset-<name>-sample.png` (the user's working directory).
 5. Show the user: preset summary table + PNG path + provenance/confidence line.
@@ -113,6 +113,10 @@ Still show the summary table and the provenance line. Note: *"Could not render s
 ## XML extraction path
 
 Input: a `.drawio` file path. Output: candidate preset JSON. Deterministic, no LLM inference.
+
+**Source scope:** read only the named `.drawio`/`.xml` file. Do not scan other
+files in the same directory or workspace unless the user explicitly designated
+that scope.
 
 ### Steps
 
@@ -171,12 +175,23 @@ Input: a `.drawio` file path. Output: candidate preset JSON. Deterministic, no L
 
 Input: path to a PNG/JPG (or any vision-readable image format). Output: candidate preset JSON. Inference-based; `confidence: "medium"` at best.
 
+**Consent:** do not read the source image until the user has explicitly agreed.
+If the image is inside a document, directory, archive, or attachment, name the
+image(s) found and ask which to read. Do not use OCR, vision, or other
+image-reading tools without explicit approval. A direct request to read the
+named image/file/figure is consent for that image. If the user declines, stop
+here and do not extract a preset from the image.
+
+**Source scope:** read only the named source image. Do not scan other images,
+files, or directories in the same workspace unless the user explicitly
+designated that scope.
+
 **Prerequisite:** the agent's vision capability must be available (same mechanism the main workflow's self-check uses). If vision is not available, stop and tell the user:
 *"Image-based learning needs a vision-enabled model (Claude Sonnet or Opus). Re-run on such a model, or provide the `.drawio` source file instead."*
 
 ### Steps
 
-1. **Read the image.** Use the agent's vision input — the same path the main workflow's step 5 uses to read exported PNGs during self-check.
+1. **After explicit consent, read the image.** Use the agent's vision input — the same path the main workflow's step 5 uses to read exported PNGs during self-check.
 
 2. **Extract palette by visual inspection.** Identify distinct fill-color regions on shape bodies.
 

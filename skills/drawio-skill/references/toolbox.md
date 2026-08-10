@@ -13,6 +13,13 @@ exports it:
 <extractor> → graph.json → autolayout.py → diagram.drawio → validate.py → (export PNG/SVG/PDF)
 ```
 
+**File scope.** Importers and live-infra recipes read user files only when the
+user explicitly names a source file, directory, repository, or workspace for
+the task. If only one file is named, read only that file. If a directory or
+workspace is designated, stay inside that scope. Do not scan the current
+working directory or nearby files speculatively; ask before going beyond the
+named scope.
+
 ## Quick decision guide
 
 | I have… | I want… | Use |
@@ -38,7 +45,7 @@ exports it:
 | a `.drawio` | the same diagram in another language | `relabel` (extract → translate → apply) |
 | a `.drawio` | it re-themed (dark / corporate preset) | `restyle` |
 | a shape/icon need | the exact style string | `shapesearch` · `aiicons` (AI/LLM logos) |
-| a photo/screenshot of a diagram | an editable `.drawio` | `raster2drawio` (your vision → JSON → draw.io) |
+| a photo/screenshot of a diagram | an editable `.drawio` | `raster2drawio` (with image consent: vision → JSON → draw.io) |
 | ONE `.drawio` | it building itself, as a video/GIF | `buildup` (→ HTML player; `--gif`) |
 | a big/sprawling diagram | a boardroom exec summary + drill-down | `compress` |
 | a decision-tree flowchart | a click-through triage app | `runbook` (→ HTML, no CLI) |
@@ -52,7 +59,7 @@ exports it:
 - **`c4.py`** — levels JSON → one multi-page `.drawio` (Context→Container→Component) with click-to-drill-down links.
 - **`tubemap.py`** — metro JSON (coloured lines + grid-placed stations) → a London-Underground-style **tube map**: octilinear (H/V/45°) routing, white interchange circles, station stops. No Graphviz. See `references/tubemap.md`.
 - **`shapesearch.py`** — search 10k+ official shapes for their exact `style=` string. **`aiicons.py`** — draw.io `image` styles for AI/LLM brand logos.
-- **`raster2drawio.py`** — a vision-extracted image graph JSON (from a whiteboard photo / legacy PNG / Visio screenshot) → editable `.drawio` honouring the read coordinates; missing positions fall back to `autolayout.py`. See `references/derasterize.md`.
+- **`raster2drawio.py`** — a vision-extracted image graph JSON (from a whiteboard photo / legacy PNG / Visio screenshot; the source image is read only after explicit user consent) → editable `.drawio` honouring the read coordinates; missing positions fall back to `autolayout.py`. See `references/derasterize.md`.
 
 ## 2. Code → diagram
 

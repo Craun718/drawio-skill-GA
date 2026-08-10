@@ -15,6 +15,12 @@ or *"map the containers I have up right now"*.
 > account itself — it only parses the JSON those tools print. If a tool or its
 > auth is missing, say so and fall back to the declared-config importer.
 
+Run these recipes only when the user explicitly asks to visualize their live
+environment or explicitly names the relevant directory/workspace. They read
+local tool state and should not be run speculatively. If the user only named a
+single file, read that file's contents; ask before invoking live tooling or
+scanning beyond it.
+
 ## 1. Deployed cloud resources — Terraform state
 
 Provider-agnostic (AWS / Azure / GCP alike). Run from the Terraform working dir:

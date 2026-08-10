@@ -4,10 +4,22 @@ Goal: turn a whiteboard photo, a legacy PNG export, or a Visio screenshot
 into an EDITABLE `.drawio` file. Claude's own vision does the extraction;
 `scripts/raster2drawio.py` only turns the extracted JSON into XML.
 
+## Consent
+
+Before reading the source image, get explicit user consent. If the image is
+inside a document, directory, archive, or attachment, tell the user which
+image(s) you found and ask whether to read them. Do **not** use OCR, vision,
+or any other image-reading tool on user-provided images without explicit
+approval. A direct request to read the named image/file/figure counts as
+consent for that image. If the user declines, stop this flow and do not
+extract anything from the image. Read only the named source image; do not scan
+neighbouring files, directories, or the enclosing workspace unless the user
+explicitly designated them.
+
 ## Workflow
 
-1. **Look at the image.** Read it with your normal vision — no OCR tool
-   needed. For every box/shape in the picture, note:
+1. **After explicit consent, look at the image.** Read it with your normal
+   vision — no OCR tool is required. For every box/shape in the picture, note:
    - `id` — any short stable slug (`n1`, `api-gw`, …)
    - `label` — the text verbatim, exactly as written (fix obvious typos only
      if the source is clearly a typo, not a stylistic choice)

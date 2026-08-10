@@ -90,6 +90,11 @@ It catches dangling edge endpoints, duplicate/reserved ids, broken parent refere
 
 Bundled importers turn a codebase or an IaC configuration into a graph JSON ready for autolayout, so "visualize this project" is a two-step pipeline:
 
+**Run an importer only when the user explicitly names the source file,
+directory, repository, or workspace.** If the user names one file, read only
+that file. If a directory or workspace is the scope, stay inside it; do not
+walk parents, siblings, the current working directory, or unrelated packages.
+
 | Source | Script | Node = | Edge = |
 | --- | --- | --- | --- |
 | Python | `scripts/pyimports.py <dir>` | module / package (`ast`) | intra-project `import` / `from` |

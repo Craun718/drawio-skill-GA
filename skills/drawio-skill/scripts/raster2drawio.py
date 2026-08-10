@@ -2,8 +2,8 @@
 """De-rasterize an image-extracted graph (JSON) into an editable .drawio.
 
 Turns a whiteboard photo, legacy PNG, or Visio screenshot into an editable
-diagram: Claude's own vision reads the image and extracts a JSON description
-of the nodes/edges (the workflow is documented in
+diagram: after explicit user consent, Claude's own vision reads the image and
+extracts a JSON description of the nodes/edges (the workflow is documented in
 references/derasterize.md); this script turns that JSON into `.drawio` XML,
 honoring the coordinates, labels, shapes, and colors Claude read off the
 image.
