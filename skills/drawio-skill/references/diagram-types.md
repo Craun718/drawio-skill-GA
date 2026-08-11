@@ -2,7 +2,7 @@
 
 When the user requests a specific diagram type, apply the matching preset below for shapes, styles, and layout conventions. These presets set **structural** style keywords (e.g. ERD's `shape=table;childLayout=tableLayout`); a user style preset (see `references/style-presets.md`) layers color/font/edge/extras on top.
 
-**Color restraint:** unless the user explicitly requests a different palette, author each diagram with at most three soft chromatic colors plus black/white/gray. Reuse those colors across roles and tiers; do not add one hue per node type.
+**Color restraint:** unless the user explicitly requests a different palette, author each diagram with at most three theme colors plus black/white/gray. Multiple tints/shades of the same theme count as one theme; reuse theme colors across roles and tiers; do not add one theme per node type.
 
 Read this file when:
 - The user names one of these diagram types (ERD, UML class, sequence, C4, architecture, ML/DL model, flowchart, SysML, BPMN, network topology, cross-functional/swimlane)
@@ -71,11 +71,11 @@ For Chinese-language layered architecture, use the v2 style below: bold 18-20pt 
 For layered systems with 4+ tiers, prefer the compact **Capability Stack Architecture**:
 
 - Keep user-facing/application tiers near the top, processing/aggregation in the middle, and platform/foundation near the bottom. Put shared external/coordination systems in a **right rail** instead of separate top or bottom tiers.
-- Each layer is a labeled swimlane with a **tiered semantic palette**: one soft hue per layer, reused consistently across the diagram.
+- Each layer is a labeled swimlane with a **tiered semantic palette**: use tints/shades of up to three theme colors, reused consistently across the diagram.
 - Keep **subordinate components** inside their layer. Use an **aggregate component full-width** at the top of a layer to summarize a group, then connect subordinate components to it. Do not turn subordinate components into separate steps.
 - Use white body cards with the layer's stroke color, bold 18-20pt body text, and 20pt bold layer headers.
 - Use unadorned orthogonal edges for layer transitions and aggregate/subordinate relations; reserve classic bidirectional arrows for the right rail.
-- Do not add a legend merely because the diagram uses one hue per layer.
+- Do not add a legend merely because the diagram uses a tiered semantic palette.
 
 | Element | Style | Notes |
 |---------|-------|-------|

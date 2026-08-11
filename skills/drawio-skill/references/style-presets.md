@@ -25,7 +25,7 @@ Only user presets can have `"default": true`. When the user says *"make `<built-
 
 When SKILL.md's Step 0 identified a preset, it fully replaces the built-in palette, shape keywords, edge defaults, and font for this diagram — do not mix values from the built-in color table.
 
-**Color restraint:** when no user preset is active, use at most three soft chromatic colors plus black/white/gray (see SKILL.md). A user preset or an explicit color request overrides this default. The built-in exception is a **tiered semantic palette** for Capability Stack Architecture: one soft hue per labeled layer is allowed, and no legend is required because the layer headers carry the color meaning.
+**Color restraint:** when no user preset is active, use at most three theme colors plus black/white/gray (see SKILL.md). Multiple tints/shades of the same theme count as one theme. A user preset or an explicit color request overrides this default. The built-in exception is a **tiered semantic palette** for Capability Stack Architecture: tints/shades of up to three theme colors may be distributed across labeled layers, and no legend is required because the layer headers carry the color meaning.
 
 **Color lookup.** For each role a shape plays (service / database / queue / gateway / error / external / security), resolve `preset.roles[role]` to a slot name, then `preset.palette[<slot>]` to the `(fillColor, strokeColor)` pair. If `roles[role]` is unset or the resolved slot is `null`, follow this fallback ladder:
 
@@ -52,7 +52,7 @@ When SKILL.md's Step 0 identified a preset, it fully replaces the built-in palet
 
 **Interaction with diagram-type presets** (ERD / UML / Sequence / ML / Flowchart). Diagram-type presets set structural style keywords that the user preset must preserve (e.g. ERD tables rely on `shape=table;startSize=30;container=1;childLayout=tableLayout;...`). The rule: keep the diagram-type preset's structural keywords, then layer the user preset's color / font / edge / extras on top. When a diagram-type preset hardcodes a color (`fillColor=#dae8fc`, etc.) that conflicts with the user preset, the user preset's color wins. Exception: `fillColor=none` is structural — do not replace it with a palette color.
 
-A **tiered semantic palette** is a diagram-type style rather than a preset role assignment: one hue per labeled layer, with the swimlane headers explaining the colors. It does not trigger a legend.
+A **tiered semantic palette** is a diagram-type style rather than a preset role assignment: tints/shades of up to three theme colors across labeled layers, with the swimlane headers explaining the colors. It does not trigger a legend.
 
 ## Learn flow
 

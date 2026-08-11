@@ -142,7 +142,7 @@ When multiple edges connect to the same shape, assign different entry/exit point
 
 *Used only when no user style preset is active (see `references/style-presets.md` → "Applying a preset").*
 
-**Color restraint:** use this table as a soft pastel pool. For any single diagram, choose at most three chromatic colors plus black/white/gray and reuse them across roles/tiers; do not add a new hue per node type unless the user explicitly requests a different palette. The built-in exception is a **tiered semantic palette** for layered architecture: one hue per labeled layer, with no legend required.
+**Color restraint:** use this table as a soft pastel pool. For any single diagram, choose at most three theme colors plus black/white/gray and reuse them across roles/tiers; tints/shades of the same theme count as one theme, so do not add a new hue per node type unless the user explicitly requests a different palette. The built-in exception is a **tiered semantic palette** for layered architecture: tints/shades of up to three theme colors may be distributed across labeled layers, with no legend required.
 
 | Color name | fillColor | strokeColor | Use for |
 |-----------|-----------|-------------|---------|
@@ -190,7 +190,7 @@ Add a legend only when role colors are not self-explanatory or the user asks for
 </mxCell>
 ```
 
-Rules: swatch colors come from the active palette (preset or the table above) with the **role name** as the label (Service, Database, Queue, …); height = `30 + 24 × rows`; the legend is a container (`parent="legend"`, relative coordinates). Skip it for single-color diagrams and for **tiered semantic palette** diagrams whose layer headers already explain each hue.
+Rules: swatch colors come from the active palette (preset or the table above) with the **role name** as the label (Service, Database, Queue, …); height = `30 + 24 × rows`; the legend is a container (`parent="legend"`, relative coordinates). Skip it for single-color diagrams and for **tiered semantic palette** diagrams whose layer headers already explain each tint.
 
 ### Layout tips
 
