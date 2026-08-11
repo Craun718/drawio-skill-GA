@@ -38,7 +38,7 @@ When the workflow references one of these, read it on demand — none of them ne
 | `references/toolbox.md` | You're **not sure which bundled script fits** a request, or want to chain several — a map of all 31 scripts grouped by use-case (author / import code / import IaC / import API spec / live infra / compare / annotate / reverse-export / utilities) with an "I have X, I want Y → use Z" guide |
 | `references/xml-authoring.md` | You're about to **hand-write `.drawio` XML** (workflow step 3) — file skeleton, shape/edge cells, containers, connection distribution, palette, spacing/grid rules. Not needed when a bundled generator writes the XML |
 | `references/mermaid-authoring.md` | The diagram is a **standard type with no custom styling/icon needs** (flowchart, state, gantt, mindmap, timeline, journey, pie, …) and the CLI is **≥ v30** — author it as Mermaid text and let the CLI convert to native `.drawio` (structure only, layout free). Also documents the CLI's ELK `--layout` pass for XML |
-| `references/diagram-types.md` | The user names a specific diagram type (ERD, UML class, sequence, C4, architecture, ML/DL, flowchart, SysML, BPMN, network topology, swimlane) |
+| `references/diagram-types.md` | The user names a specific diagram type (ERD, UML class, sequence, C4, architecture, project/program architecture, ML/DL, flowchart, SysML, BPMN, network topology, swimlane) |
 | `references/shapes.md` + `scripts/shapesearch.py` | The diagram needs a **specific shape** — a cloud icon (AWS/Azure/GCP), Cisco/Kubernetes/network symbol, UML/BPMN/ER/electrical/P&ID element — or any time you'd otherwise guess a `style=` string. `shapesearch.py "<keywords>"` returns the exact official style for 10k+ shapes |
 | `scripts/aiicons.py` | The diagram involves an **AI/LLM brand** (OpenAI, Claude, Gemini, Mistral, Llama, HuggingFace, Ollama, LangChain, …) — `aiicons.py "<brand>"` returns a draw.io `image` style for the brand logo (lobe-icons via CDN; `--embed` to inline). draw.io has no built-in AI logos. See `references/shapes.md` → "AI / LLM brand logos" |
 | `references/style-presets.md` | The user asks to learn / save / list / set-default / delete a style preset, or you've resolved an active preset and need the application rules |
@@ -360,6 +360,7 @@ When the user requests a specific diagram type, read `references/diagram-types.m
 | "UML class diagram", "class diagram" | UML Class |
 | "sequence diagram", "interaction diagram", "lifeline" | Sequence |
 | "architecture", "system diagram", "service diagram" | Architecture |
+| "建设方案", "项目汇报", "项目总体架构图", "平台总体架构", "系统集成架构" | Architecture → Project / Program Architecture |
 | "neural network", "model architecture", "ML diagram", "deep learning" | ML / Deep Learning Model |
 | "flowchart", "decision tree", "process flow" | Flowchart |
 | "C4", "system context diagram", "container diagram", "component diagram" | C4 Model |
@@ -367,5 +368,7 @@ When the user requests a specific diagram type, read `references/diagram-types.m
 | "BPMN", "business process", "process model", "pool and lanes", "workflow diagram" | BPMN |
 | "network topology", "network diagram", "LAN/WAN", "subnet", "firewall diagram" | Network Topology |
 | "swimlane diagram", "cross-functional flowchart", "who does what", "handoff diagram" | Cross-Functional Flowchart |
+
+**For proposal-style project/program architecture:** use the `Project / Program Architecture` preset in `references/diagram-types.md`. Keep named current systems, the target platform, concrete data groups, quantified outcomes, and supporting facts from the proposal. Preserve proposal wording verbatim: do not add separators, prefixes, merged roles, or decorative labels; do not flatten the diagram into a generic Capability Stack unless the source explicitly describes those layers.
 
 The diagram-type preset sets **structural** style keywords. If a user style preset is also active (see `## Style Presets`), keep the structural keywords and layer color/font/edge/extras on top — read `references/style-presets.md` → "Interaction with diagram-type presets" for the merge rules.

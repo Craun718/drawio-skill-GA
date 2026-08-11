@@ -154,6 +154,24 @@ When multiple edges connect to the same shape, assign different entry/exit point
 | Grey | `#f5f5f5` | `#666666` | external/neutral |
 | Purple | `#e1d5e7` | `#9673a6` | security, auth |
 
+### Project Architecture style
+
+For proposal-style project/program architecture, organize the canvas from the source document's own sections and labels. Use the source's actual headings and labels; do not assume a fixed set of section titles. Do not flatten the diagram into a Capability Stack unless the source explicitly describes layered tiers.
+
+- **Canvas and bands:** size the page to the actual content; never reuse coordinates or dimensions copied from another diagram. Build report-style bands from the source's own sections and labels.
+- **Containment:** represent every named current system and every target-platform module group as its own `swimlane` container. Children set `parent="containerId"` and use coordinates **relative to the container** (see "Containers and groups" above).
+- **Dense labels:** preserve exact proposal wording. Use `&#xa;` inside `value` attributes for multi-line text, and keep source punctuation. Do not add separators, prefixes, merged role labels, or decorative markers.
+- **Data exchange:** connect specific source/target cards rather than whole containers when the proposal names concrete exchanges. Label each edge with the actual data groups and use `labelBackgroundColor=#ffffff;` so dense labels stay readable.
+- **Styles:** reuse the structural styles from `references/diagram-types.md` → "Project / Program Architecture" for the source-defined bands, containers, cards, and data-flow elements.
+- **Theming:** use one theme color per current department/system and one for the target platform, at most three theme colors total; keep tint/shade variants inside those families.
+- **Audit:** before export, re-read every cell value against the proposal and remove any content that is not in the source.
+
+When authoring the XML, use relative geometry and no copied page coordinates:
+
+- Page-level cells use coordinates chosen for the actual proposal content; keep every x/y/width/height on the drawing grid (multiples of 10) and leave enough empty routing corridor for the data-flow edges.
+- Children of each band/swimlane use coordinates relative to their `parent`; this is what keeps a report band movable as one unit.
+- Keep the exact proposal strings in cell `value` attributes and use `&#xa;` for line breaks; use `labelBackgroundColor=#ffffff;` on data-flow edge styles so dense labels remain readable.
+
 ### Capability Stack Architecture style
 
 For layered architecture, prefer the compact **Capability Stack Architecture** style: larger bold text, white service blocks, thick unadorned layer edges, aggregate components, and a narrow vertical rail for external/coordination systems. This is a **tiered semantic palette**, so the layer headers carry the color meaning and no legend is needed.

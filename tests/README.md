@@ -19,6 +19,7 @@ python3 -m unittest discover -s tests -v
 | `autolayout.py` | palette sourced from `default.json` (not the fallback), group tinting, explicit-style wins, `--mono` |
 | `validate.py` | good `.drawio` passes (exit 0), dangling edge fails (exit 1) |
 | importers | `pyimports` intra-project edge, `pyclasses` inheritance edge + no hard-coded colour |
+| architecture guidance | project/program architecture routing, XML guidance, and source-fidelity rules exist |
 
 Auto-layout is exercised through `to_drawio()` with synthetic positions, so the
 suite needs **no Graphviz or draw.io** to run.

@@ -66,6 +66,37 @@ Read this file when:
 
 For Chinese-language layered architecture, use the v2 style below: bold 18-20pt text, white-filled blocks, thick labeled layer edges, and a narrow full-height side rail for external/coordination systems. For non-Chinese diagrams, keep the active preset font but use the same sizes and weights.
 
+### Project / Program Architecture
+
+Use this preset for proposal-style project/program architecture, especially when the document describes named current systems beside a target platform. Do not flatten it into the generic Capability Stack: keep the source's own narrative about current state, target platform, integration, and outcomes.
+
+Map the proposal's own sections, headings, systems, modules, integrations and data exchange, outcomes, and supporting facts into the diagram. Use the source's actual headings and labels; do not assume a fixed set of section titles. Do not flatten it into the generic Capability Stack unless the source explicitly describes layered tiers.
+
+Layout:
+- Use a report-style layout sized to the actual content; never reuse coordinates or dimensions from another diagram.
+- Use one theme color per current department/system and one for the target platform (at most three themes total); keep tint/shade variants inside those families.
+- Use parent-child containment for source-defined system and module groups.
+- Connect specific cards, not whole containers, when the proposal states a concrete exchange; label edges with the actual data groups.
+- Do not invent a generic infrastructure/data layer unless the proposal explicitly describes it. If it does, keep its exact names.
+- Before export, audit every cell value against the proposal and remove any content that is not in the source. Keep the proposal's exact wording and punctuation; do not add separators, prefixes, merged labels, or decorative markers.
+
+| Element | Style | Notes |
+|---------|-------|-------|
+| Page title | `text;html=1;fontSize=30;fontStyle=1;fontColor=#1a3a5c;fontFamily=仿宋_GB2312;` | Centered |
+| Subtitle | `text;html=1;fontSize=14;fontColor=#666666;fontFamily=仿宋_GB2312;fontStyle=1;` | Centered |
+| Audience/entry band | `rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f4ff;strokeColor=#b0c4de;dashed=1;dashPattern=5 5;fontFamily=仿宋_GB2312;` | Full-width band |
+| Audience/entry card | `rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;` | Include the source's entry-channel labels |
+| Current system swimlane | `swimlane;startSize=26;fontSize=14;fontStyle=1;` + department color | One per current system |
+| Current database | `shape=cylinder3;whiteSpace=wrap;html=1;` + department color | Include scale facts |
+| Current module | `rounded=0;whiteSpace=wrap;html=1;` + department color | Preserve exact source wording |
+| Target platform swimlane | `swimlane;startSize=28;fillColor=#dae8fc;strokeColor=#6c8ebf;swimlaneFillColor=#f4f9ff;fontFamily=仿宋_GB2312;` | Contains target-platform module cards |
+| Target module card | `rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=14;` | Keep dense text for proposals |
+| Data-flow container | `rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=3 3;arcSize=12;` + source theme | List exact exchanged data groups |
+| Data-flow edge | `edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;` + `labelBackgroundColor=#ffffff;` | Connect specific source/target cards |
+| Outcome band | `rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f8ff;strokeColor=#1a3a5c;strokeWidth=1.5;` | Full-width bottom band |
+| Outcome/KPI card | `rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;` | One quantified result per card |
+| Facts footer | `text;html=1;fontSize=14;fontColor=#999999;align=center;` | Supporting facts from the proposal |
+
 ### Capability Stack Architecture
 
 For layered systems with 4+ tiers, prefer the compact **Capability Stack Architecture**:
